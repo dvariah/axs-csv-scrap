@@ -18,26 +18,17 @@ class Program
             var result = new List<string>();
             foreach (var file in helper.Files)
             {
-                var fields = reader.ReadField(file, 2).Result;
+                var fields = reader.ReadField(file, 1).Result;
                 result.AddRange(fields);
-            }
-            foreach (var r in result)
-            {
-                Console.WriteLine(r);
-            }
+            }            
         }
         if (helper.returnAssosiatedOrders)
         {
             var result = new List<string>();
             foreach (var file in helper.Files)
             {
-                var csvLines = reader.ReadWhereFieldEquals(file, 2, helper.Fields.First()).Result;
+                var csvLines = reader.ReadWhereFieldEquals(file, 1, helper.Fields.First()).Result;
                 result.AddRange(csvLines);
-                Console.WriteLine($"here {csvLines.Count}");
-            }
-            foreach (var r in result)
-            {
-                Console.WriteLine(r);
             }
         }
     }
