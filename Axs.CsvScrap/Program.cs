@@ -14,6 +14,9 @@ class Program
         {
             Console.WriteLine(ArgHelper.DOC);
         }
+
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+
         if (helper.getUniqueTransactionIds)
         {
             var result = new List<string>();
@@ -21,7 +24,7 @@ class Program
             {
                 var fields = reader.ReadField(file, 1).Result;
                 result.AddRange(fields);
-            }            
+            }
         }
         if (helper.returnAssosiatedOrders)
         {
@@ -35,17 +38,21 @@ class Program
             var firstFilePath = helper.Files.First();
             var resultFilePath = firstFilePath.Replace(Path.GetFileNameWithoutExtension(firstFilePath), "Results");
 
-            if(!File.Exists(resultFilePath))
-        {
+            if (!File.Exists(resultFilePath))
+            {
                 using (var writer = File.CreateText(resultFilePath))
                 {
-                   foreach (var row in result)
+                    foreach (var row in result)
                     {
                         writer.WriteLine(row);
                     }
                 }
             }
         }
+
+        var elapsedMs = watch.ElapsedMilliseconds;
+        Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press any key to exit ...");
+        Console.ReadLine();
     }
 }
 
