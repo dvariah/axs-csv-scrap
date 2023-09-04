@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Axs.CsvScrap;
+﻿using Axs.CsvScrap;
 using NUnit.Framework;
 
 namespace Axs.CvsScrap.Tests
