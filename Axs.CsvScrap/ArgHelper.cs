@@ -29,20 +29,24 @@
                     if (arg.Equals("--unique-transactions"))
                     {
                         getUniqueTransactionIds = true;
+                        continue;
                     }
                     if (arg.Equals("--orders-by-id"))
                     {
                         returnAssosiatedOrders = true;
+                        continue;
                     }
                 }
                 if (Path.Exists(arg))
                 {
                     arg.Replace("\"", string.Empty);
                     Files.Add(arg);
+                    continue;
                 }
                 else
                 {
                     Fields.Add(arg);
+                    continue;
                 }
             }
         }
