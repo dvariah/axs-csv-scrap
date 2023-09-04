@@ -4,7 +4,7 @@
     {
         public string Delimiter { get { return ","; } }
 
-        public async Task<List<string>> Read(string filePath)
+        public async Task<List<string>> ReadWhereFieldEquals(string filePath, int idx, string fieldValue)
         {
             var result = new List<string>();
             using var reader = new StreamReader(filePath);
@@ -13,7 +13,9 @@
 
             while (csvLine != null)
             {
-                result.Add(csvLine);
+                var field = GetField(csvLine, idx);
+                if (field.Contains(fieldValue)) { result.Add(csvLine); }
+
                 csvLine = await reader.ReadLineAsync();
             }
 
@@ -30,14 +32,20 @@
             while (csvLine != null)
             {
                 var field = GetField(csvLine, idx);
-
-                result.Add(field);
+                if (!result.Contains(field)) { result.Add(field); }
                 csvLine = await reader.ReadLineAsync();
             }
 
             return result;
         }
 
+        /// <summary>
+        /// Returns CSV element at index postion
+        /// </summary>
+        /// <param name="s">Input csv string</param>
+        /// <param name="i">Index of looked forcsv element</param>
+        /// <returns>CSV element at index postion</returns>
+        /// <exception cref="Exception"></exception>
         public string GetField(string s, int i)
         {
             int start = 0;
@@ -62,7 +70,8 @@
                     if (numberOfOccurence == i) { start = current + 1; }
                     if (numberOfOccurence == i + 1) { end = current; }
                     previous = current;
-                } while (numberOfOccurence <= i + 1);
+                }
+                while (numberOfOccurence <= i + 1);
             }
 
             if (end == -1) { end = s.Length; }
