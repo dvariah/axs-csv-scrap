@@ -8,6 +8,7 @@
         public bool isCallForHelp = false;
         public bool getUniqueTransactionIds = false;
         public bool returnAssosiatedOrders = false;
+        public bool extractOrderIds = false;
 
         public void Parse(string[] Args)
         {
@@ -36,10 +37,15 @@
                         returnAssosiatedOrders = true;
                         continue;
                     }
+                    if (arg.Equals("--extract-order-ids"))
+                    {
+                        extractOrderIds= true;
+                        continue;
+                    }
                 }
                 if (Path.Exists(arg))
                 {
-                    arg.Replace("\"", string.Empty);
+                    //arg.Replace("\"", string.Empty);
                     Files.Add(arg);
                     continue;
                 }
