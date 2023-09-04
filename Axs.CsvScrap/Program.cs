@@ -1,4 +1,5 @@
 ﻿using Axs.CsvScrap;
+using System.IO;
 
 class Program
 {
@@ -29,6 +30,20 @@ class Program
             {
                 var csvLines = reader.ReadWhereFieldEquals(file, 1, helper.Fields.First()).Result;
                 result.AddRange(csvLines);
+            }
+
+            var firstFilePath = helper.Files.First();
+            var resultFilePath = firstFilePath.Replace(Path.GetFileNameWithoutExtension(firstFilePath), "Results");
+
+            if(!File.Exists(resultFilePath))
+        {
+                using (var writer = File.CreateText(resultFilePath))
+                {
+                   foreach (var row in result)
+                    {
+                        writer.WriteLine(row);
+                    }
+                }
             }
         }
     }
