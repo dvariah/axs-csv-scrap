@@ -1,5 +1,4 @@
 ﻿using Axs.CsvScrap;
-using System.IO;
 
 class Program
 {
@@ -38,21 +37,27 @@ class Program
             var firstFilePath = helper.Files.First();
             var resultFilePath = firstFilePath.Replace(Path.GetFileNameWithoutExtension(firstFilePath), "Results");
 
-            if (!File.Exists(resultFilePath))
+            DeleteFileIfExists(resultFilePath);
+
+            using (var writer = File.CreateText(resultFilePath))
             {
-                using (var writer = File.CreateText(resultFilePath))
+                foreach (var row in result)
                 {
-                    foreach (var row in result)
-                    {
-                        writer.WriteLine(row);
-                    }
+                    writer.WriteLine(row);
                 }
             }
         }
 
-        var elapsedMs = watch.ElapsedMilliseconds;
-        Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press any key to exit ...");
+        Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press enter to exit ...");
         Console.ReadLine();
+    }
+
+    private static void DeleteFileIfExists(string filePath)
+    {
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
     }
 }
 
