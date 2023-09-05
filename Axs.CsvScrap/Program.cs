@@ -47,6 +47,49 @@ class Program
                 }
             }
         }
+        if (helper.getFileStats)
+        {
+            var results = new List<SaleStats>();
+            var sales = reader.ReadSales(helper.SalesFilePath);
+            var payments = reader.ReadPayments(helper.PaymentFilePath);
+            var distributions = reader.ReadDistributions(helper.DistributionFilePath);
+
+            foreach (var sale in sales)
+            {
+                var stats = results.FirstOrDefault(r => r.order_id.Equals(sale.transaction_id));
+                if (stats == null)
+                {
+                    stats = new SaleStats { order_id = sale.transaction_id };
+                    results.Add(stats);
+                }
+
+                switch (sale.inventory_type)
+                {
+                    case "0":
+                        stats.num_of_fee_sales++;
+                        break;
+                    case "1":
+                        stats.num_of_merch_sales++;
+                        break;
+                    case "2":
+                        stats.num_of_ticket_sales++;
+                        break;
+                }
+            }
+
+            foreach (var payment in payments)
+            {
+                var result = results.FirstOrDefault(r => r.order_id.Equals(payment.transaction_id));
+                if (result == null) continue;
+                result.num_of_payments++;
+            }
+
+            foreach (var result in results)
+            {
+                var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
+                Console.WriteLine(resultString);
+            }
+        }
 
         Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press enter to exit ...");
         Console.ReadLine();
