@@ -86,6 +86,7 @@ class Program
             }
 
             var resultFilePath = helper.SalesFilePath.Replace(".csv.gz", "-stats.csv");
+            DeleteFileIfExists(resultFilePath);
             using var writer = File.CreateText(resultFilePath);
 
             foreach (var result in results)
