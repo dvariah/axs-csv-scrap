@@ -48,16 +48,22 @@
                         extractOrderIds = true;
                         continue;
                     }
+                    if (arg.Equals("--get-file-stats"))
+                    {
+                        getFileStats = true;
+                        continue;
+                    }
                 }
                 if (Path.Exists(arg))
                 {
                     if (!arg.Contains("csv.gz")) { throw new Exception("Not suported file format"); }
+                    var folderPath = Path.GetDirectoryName(arg);
 
                     //get file name nodes
                     var n = arg.Split("_");
-                    SalesFilePath = $"axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
-                    PaymentFilePath = $"axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
-                    DistributionFilePath = $"axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    SalesFilePath = $"{folderPath}\\axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    PaymentFilePath = $"{folderPath}\\axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    DistributionFilePath = $"{folderPath}\\axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
 
                     Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
                     continue;
