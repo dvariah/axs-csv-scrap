@@ -82,6 +82,7 @@ class Program
                 var result = results.FirstOrDefault(r => r.order_id.Equals(payment.transaction_id));
                 if (result == null) continue;
                 result.num_of_payments++;
+                result.num_of_paymentdistributions += distributions.Where(d => d.payment_id.Equals(payment.payment_id)).Count();
             }
 
             var resultFilePath = helper.SalesFilePath.Replace(".csv.gz", "-stats.csv");
