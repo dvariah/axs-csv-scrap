@@ -84,10 +84,14 @@ class Program
                 result.num_of_payments++;
             }
 
+            var resultFilePath = helper.SalesFilePath.Replace(".csv.gz", "-stats.csv");
+            using var writer = File.CreateText(resultFilePath);
+
             foreach (var result in results)
             {
                 var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
                 Console.WriteLine(resultString);
+                writer.WriteLine(resultString);
             }
         }
 
