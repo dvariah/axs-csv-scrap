@@ -3,7 +3,7 @@
     public class ArgHelper
     {
         public List<string> Files = new List<string>();
-        public List<string> Fields = new List<string>();
+        public List<string> IdArgs = new List<string>();
 
         public string WorkFolderPath { get; set; }
         public string SalesFilePath { get; set; }
@@ -71,7 +71,7 @@
                 }
                 else
                 {
-                    Fields.Add(arg);
+                    IdArgs.Add(arg);
                     continue;
                 }
             }
