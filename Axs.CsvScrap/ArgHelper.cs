@@ -5,9 +5,15 @@
         public List<string> Files = new List<string>();
         public List<string> Fields = new List<string>();
 
+        public string SalesFilePath { get; set; }
+        public string PaymentFilePath { get; set; }
+        public string DistributionFilePath { get; set; }
+
         public bool isCallForHelp = false;
         public bool getUniqueTransactionIds = false;
         public bool returnAssosiatedOrders = false;
+
+        public bool getFileStats = false;
         public bool extractOrderIds = false;
 
         public void Parse(string[] Args)
@@ -39,14 +45,23 @@
                     }
                     if (arg.Equals("--extract-order-ids"))
                     {
-                        extractOrderIds= true;
+                        extractOrderIds = true;
                         continue;
                     }
                 }
                 if (Path.Exists(arg))
                 {
-                    //arg.Replace("\"", string.Empty);
+                    //old
                     Files.Add(arg);
+
+                    //get file name nodes
+                    var n = arg.Split("_");
+                    Console.WriteLine("here" +n.Length);
+                    SalesFilePath = $"axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    PaymentFilePath = $"axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    DistributionFilePath = $"axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+
+                    Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
                     continue;
                 }
                 else
