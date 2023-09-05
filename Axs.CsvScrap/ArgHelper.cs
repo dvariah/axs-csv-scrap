@@ -5,6 +5,7 @@
         public List<string> Files = new List<string>();
         public List<string> Fields = new List<string>();
 
+        public string WorkFolderPath { get; set; }
         public string SalesFilePath { get; set; }
         public string PaymentFilePath { get; set; }
         public string DistributionFilePath { get; set; }
@@ -57,13 +58,13 @@
                 if (Path.Exists(arg))
                 {
                     if (!arg.Contains("csv.gz")) { throw new Exception("Not suported file format"); }
-                    var folderPath = Path.GetDirectoryName(arg);
+                    WorkFolderPath = Path.GetDirectoryName(arg);
 
                     //get file name nodes
                     var n = arg.Split("_");
-                    SalesFilePath = $"{folderPath}\\axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
-                    PaymentFilePath = $"{folderPath}\\axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
-                    DistributionFilePath = $"{folderPath}\\axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    SalesFilePath = $"{WorkFolderPath}\\axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    PaymentFilePath = $"{WorkFolderPath}\\axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    DistributionFilePath = $"{WorkFolderPath}\\axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
 
                     Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
                     continue;
