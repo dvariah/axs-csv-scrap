@@ -30,7 +30,7 @@ class Program
             var result = new List<string>();
             foreach (var file in helper.Files)
             {
-                var csvLines = reader.ReadWhereFieldEquals(file, 1, helper.Fields.First()).Result;
+                var csvLines = reader.ReadWhereFieldEquals(file, 1, helper.IdArgs.First()).Result;
                 result.AddRange(csvLines);
             }
 
@@ -95,6 +95,42 @@ class Program
                 Console.WriteLine(resultString);
                 writer.WriteLine(resultString);
             }
+        }
+        if (helper.extractOrderIds)
+        {
+            var salesResults = new List<Sale>();
+            var paymentsResults = new List<Payment>();
+            var distibutionsResults = new List<Distribution>();
+
+            var sales = reader.ReadSales(helper.SalesFilePath);
+            var payments = reader.ReadPayments(helper.PaymentFilePath);
+            var distributions = reader.ReadDistributions(helper.DistributionFilePath);
+
+            foreach (var sale in sales)
+            {
+                if (helper.IdArgs.Contains(sale.transaction_id))
+                {
+                    salesResults.Add(sale);
+                }
+            }
+
+            foreach (var payment in payments)
+            {
+                if (helper.IdArgs.Contains(payment.transaction_id))
+                {
+                    paymentsResults.Add(payment);
+                }
+            }
+
+            foreach (var distiribution in distributions)
+            {
+                if (paymentsResults.Exists(p => p.payment_id.Equals(distiribution.payment_id)))
+                {
+                    distibutionsResults.Add(distiribution);
+                }
+            }
+
+
         }
 
         Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press enter to exit ...");
