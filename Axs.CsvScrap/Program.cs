@@ -89,6 +89,9 @@ class Program
             DeleteFileIfExists(statsFilePath);
             using var writer = File.CreateText(statsFilePath);
 
+            var header = "order_id, num_of_ticket_sales, num_of_fee_sales, num_of_merch_sales, num_of_payments, num_of_paymentdistributions";
+            writer.WriteLine(header);
+
             foreach (var result in results)
             {
                 var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
