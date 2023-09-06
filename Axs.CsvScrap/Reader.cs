@@ -102,6 +102,7 @@ namespace Axs.CsvScrap
                 sale.unique_id = GetField(csvLine, 0);
                 sale.transaction_id = GetField(csvLine, 1);
                 sale.inventory_type = GetField(csvLine, 24);
+                sale.OriginalCsvLine = csvLine;
                 result.Add(sale);
                 csvLine = reader.ReadLine();
             }
@@ -124,6 +125,7 @@ namespace Axs.CsvScrap
                 payment.unique_id = GetField(csvLine, 0);
                 payment.transaction_id = GetField(csvLine, 1);
                 payment.payment_id = GetField(csvLine, 7);
+                payment.OriginalCsvLine = csvLine;
                 result.Add(payment);
                 csvLine = reader.ReadLine();
             }
@@ -145,6 +147,7 @@ namespace Axs.CsvScrap
                 var distribution = new Distribution();
                 distribution.unique_id = GetField(csvLine, 0);
                 distribution.payment_id = GetField(csvLine, 6);
+                distribution.OriginalCsvLine = csvLine;
                 result.Add(distribution);
                 csvLine = reader.ReadLine();
             }
