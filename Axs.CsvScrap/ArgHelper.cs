@@ -16,6 +16,10 @@
         public string ExtractedPaymentsFilePath { get; set; }
         public string ExtractedDistributionsFilePath { get; set; }
 
+        public string CountryCode { get; set; }
+        public string CityName { get; set; }
+        public string Code { get; set; }
+
         public bool isCallForHelp = false;
         public bool getUniqueTransactionIds = false;
         public bool returnAssosiatedOrders = false;
@@ -68,14 +72,20 @@
 
                     var n = arg.Split("_");
 
-                    SalesFilePath = $"{WorkFolderPath}\\axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
-                    PaymentFilePath = $"{WorkFolderPath}\\axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
-                    DistributionFilePath = $"{WorkFolderPath}\\axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+                    CountryCode = n[n.Length - 3];
+                    CityName = n[n.Length - 2];
+                    Code = n[n.Length - 1].Replace(".csv.gz", string.Empty);
+
+                    SalesFilePath = $"{WorkFolderPath}\\axs_sales_{CountryCode}_{CityName}_{Code}.csv.gz";
+                    PaymentFilePath = $"{WorkFolderPath}\\axs_payment_{CountryCode}_{CityName}_{Code}.csv.gz";
+                    DistributionFilePath = $"{WorkFolderPath}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}.csv.gz";
 
                     StatsFilePath = SalesFilePath.Replace(".csv.gz", "-stats.csv");
-                    ExtractedSalesFilePath = SalesFilePath.Replace(".csv.gz", "-extracted.csv");
-                    ExtractedPaymentsFilePath = PaymentFilePath.Replace(".csv.gz", "-extracted.csv");
-                    ExtractedDistributionsFilePath = DistributionFilePath.Replace(".csv.gz", "-extracted.csv");
+
+
+                    ExtractedSalesFilePath = $"{WorkFolderPath}\\input\\sales\\{CountryCode}\\{CityName}\\axs_sales_{CountryCode}_{CityName}_{Code}-extracted.csv";
+                    ExtractedPaymentsFilePath = $"{WorkFolderPath}\\payment\\{CountryCode}\\{CityName}\\axs_payment_{CountryCode}_{CityName}_{Code}-extracted.csv";
+                    ExtractedDistributionsFilePath = $"{WorkFolderPath}\\payment_distribution\\{CountryCode}\\{CityName}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}-extracted.csv";
 
                     Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
                     continue;
