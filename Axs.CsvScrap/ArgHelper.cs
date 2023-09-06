@@ -6,9 +6,12 @@
         public List<string> IdArgs = new List<string>();
 
         public string WorkFolderPath { get; set; }
+
         public string SalesFilePath { get; set; }
         public string PaymentFilePath { get; set; }
         public string DistributionFilePath { get; set; }
+
+        public string StatsFilePath { get; set; }
 
         public bool isCallForHelp = false;
         public bool getUniqueTransactionIds = false;
@@ -60,11 +63,13 @@
                     if (!arg.Contains("csv.gz")) { throw new Exception("Not suported file format"); }
                     WorkFolderPath = Path.GetDirectoryName(arg);
 
-                    //get file name nodes
                     var n = arg.Split("_");
+
                     SalesFilePath = $"{WorkFolderPath}\\axs_sales_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
                     PaymentFilePath = $"{WorkFolderPath}\\axs_payment_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
                     DistributionFilePath = $"{WorkFolderPath}\\axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
+
+                    StatsFilePath = SalesFilePath.Replace(".csv.gz", "-stats.csv");
 
                     Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
                     continue;

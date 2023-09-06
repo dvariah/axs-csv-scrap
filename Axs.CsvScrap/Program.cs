@@ -85,9 +85,8 @@ class Program
                 result.num_of_paymentdistributions += distributions.Where(d => d.payment_id.Equals(payment.payment_id)).Count();
             }
 
-            var statsFilePath = helper.SalesFilePath.Replace(".csv.gz", "-stats.csv");
-            DeleteFileIfExists(statsFilePath);
-            using var writer = File.CreateText(statsFilePath);
+            DeleteFileIfExists(helper.StatsFilePath);
+            using var writer = File.CreateText(helper.StatsFilePath);
 
             var header = "order_id, num_of_ticket_sales, num_of_fee_sales, num_of_merch_sales, num_of_payments, num_of_paymentdistributions";
             writer.WriteLine(header);
