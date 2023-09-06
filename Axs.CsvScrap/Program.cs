@@ -130,6 +130,13 @@ class Program
                 }
             }
 
+            var resultSalesFilePath = helper.SalesFilePath.Replace(".csv.gz", "-extracted.csv");
+            var resultPaymentsFilePath = helper.PaymentFilePath.Replace(".csv.gz", "-extracted.csv");
+            var resultDistributionsFilePath = helper.DistributionFilePath.Replace(".csv.gz", "-extracted.csv");
+
+            DeleteFileIfExists(resultSalesFilePath);
+            DeleteFileIfExists(resultPaymentsFilePath);
+            DeleteFileIfExists(resultDistributionsFilePath);
 
         }
 
