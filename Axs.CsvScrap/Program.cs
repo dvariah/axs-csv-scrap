@@ -136,27 +136,23 @@ class Program
                 }
             }
 
-            var resultSalesFilePath = helper.SalesFilePath.Replace(".csv.gz", "-extracted.csv");
-            var resultPaymentsFilePath = helper.PaymentFilePath.Replace(".csv.gz", "-extracted.csv");
-            var resultDistributionsFilePath = helper.DistributionFilePath.Replace(".csv.gz", "-extracted.csv");
+            DeleteFileIfExists(helper.ExtractedSalesFilePath);
+            DeleteFileIfExists(helper.ExtractedPaymentsFilePath);
+            DeleteFileIfExists(helper.ExtractedDistributionsFilePath);
 
-            DeleteFileIfExists(resultSalesFilePath);
-            DeleteFileIfExists(resultPaymentsFilePath);
-            DeleteFileIfExists(resultDistributionsFilePath);
-
-            using var writerS = File.CreateText(resultSalesFilePath);
+            using var writerS = File.CreateText(helper.ExtractedSalesFilePath);
             foreach (var sale in salesResults)
             {
                 writerS.WriteLine(sale.OriginalCsvLine);
             }
 
-            using var writerP = File.CreateText(resultPaymentsFilePath);
+            using var writerP = File.CreateText(helper.ExtractedPaymentsFilePath);
             foreach (var payment in paymentsResults)
             {
                 writerP.WriteLine(payment.OriginalCsvLine);
             }
 
-            using var writerD = File.CreateText(resultDistributionsFilePath);
+            using var writerD = File.CreateText(helper.ExtractedDistributionsFilePath);
             foreach (var distribution in distibutionsResults)
             {
                 writerP.WriteLine(distribution.OriginalCsvLine);

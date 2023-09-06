@@ -12,6 +12,9 @@
         public string DistributionFilePath { get; set; }
 
         public string StatsFilePath { get; set; }
+        public string ExtractedSalesFilePath { get; set; }
+        public string ExtractedPaymentsFilePath { get; set; }
+        public string ExtractedDistributionsFilePath { get; set; }
 
         public bool isCallForHelp = false;
         public bool getUniqueTransactionIds = false;
@@ -70,6 +73,9 @@
                     DistributionFilePath = $"{WorkFolderPath}\\axs_payment_distribution_{n[n.Length - 3]}_{n[n.Length - 2]}_{n[n.Length - 1]}";
 
                     StatsFilePath = SalesFilePath.Replace(".csv.gz", "-stats.csv");
+                    ExtractedSalesFilePath = SalesFilePath.Replace(".csv.gz", "-extracted.csv");
+                    ExtractedPaymentsFilePath = PaymentFilePath.Replace(".csv.gz", "-extracted.csv");
+                    ExtractedDistributionsFilePath = DistributionFilePath.Replace(".csv.gz", "-extracted.csv");
 
                     Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
                     continue;
