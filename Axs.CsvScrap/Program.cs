@@ -85,14 +85,13 @@ class Program
                 result.num_of_paymentdistributions += distributions.Where(d => d.payment_id.Equals(payment.payment_id)).Count();
             }
 
-            var resultFilePath = helper.SalesFilePath.Replace(".csv.gz", "-stats.csv");
-            DeleteFileIfExists(resultFilePath);
-            using var writer = File.CreateText(resultFilePath);
+            var statsFilePath = helper.SalesFilePath.Replace(".csv.gz", "-stats.csv");
+            DeleteFileIfExists(statsFilePath);
+            using var writer = File.CreateText(statsFilePath);
 
             foreach (var result in results)
             {
                 var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
-                Console.WriteLine(resultString);
                 writer.WriteLine(resultString);
             }
         }
@@ -146,21 +145,18 @@ class Program
             using var writerS = File.CreateText(resultSalesFilePath);
             foreach (var sale in salesResults)
             {
-                Console.WriteLine(sale.OriginalCsvLine);
                 writerS.WriteLine(sale.OriginalCsvLine);
             }
 
             using var writerP = File.CreateText(resultPaymentsFilePath);
             foreach (var payment in paymentsResults)
             {
-                Console.WriteLine(payment.OriginalCsvLine);
                 writerP.WriteLine(payment.OriginalCsvLine);
             }
 
             using var writerD = File.CreateText(resultDistributionsFilePath);
             foreach (var distribution in distibutionsResults)
             {
-                Console.WriteLine(distribution.OriginalCsvLine);
                 writerP.WriteLine(distribution.OriginalCsvLine);
             }
         }
@@ -177,4 +173,3 @@ class Program
         }
     }
 }
-
