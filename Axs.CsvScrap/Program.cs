@@ -98,6 +98,11 @@ class Program
         }
         if (helper.extractOrderIds)
         {
+            if (helper.IdArgs.Count == 0)
+            {
+                throw new Exception("No transaction id argument provided");
+            }
+
             var salesResults = new List<Sale>();
             var paymentsResults = new List<Payment>();
             var distibutionsResults = new List<Distribution>();
@@ -108,7 +113,7 @@ class Program
 
             foreach (var sale in sales)
             {
-                if (helper.IdArgs.Contains(sale.transaction_id))
+                if (helper.IdArgs.Exists(i => i.Equals(sale.transaction_id)))
                 {
                     salesResults.Add(sale);
                 }
@@ -138,6 +143,26 @@ class Program
             DeleteFileIfExists(resultPaymentsFilePath);
             DeleteFileIfExists(resultDistributionsFilePath);
 
+            using var writerS = File.CreateText(resultSalesFilePath);
+            foreach (var sale in salesResults)
+            {
+                Console.WriteLine(sale.OriginalCsvLine);
+                writerS.WriteLine(sale.OriginalCsvLine);
+            }
+
+            using var writerP = File.CreateText(resultPaymentsFilePath);
+            foreach (var payment in paymentsResults)
+            {
+                Console.WriteLine(payment.OriginalCsvLine);
+                writerP.WriteLine(payment.OriginalCsvLine);
+            }
+
+            using var writerD = File.CreateText(resultDistributionsFilePath);
+            foreach (var distribution in distibutionsResults)
+            {
+                Console.WriteLine(distribution.OriginalCsvLine);
+                writerP.WriteLine(distribution.OriginalCsvLine);
+            }
         }
 
         Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press enter to exit ...");
