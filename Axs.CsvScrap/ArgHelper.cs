@@ -71,7 +71,8 @@
                 }
                 else
                 {
-                    IdArgs.Add(arg);
+                    var id = $"\"{arg}\"";
+                    IdArgs.Add(id);
                     continue;
                 }
             }
