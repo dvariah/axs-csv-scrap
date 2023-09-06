@@ -5,5 +5,7 @@
         public string unique_id { get; set; }
         public string transaction_id { get; set; }
         public string inventory_type { get; set; }
+
+        public string OriginalCsvLine { get; set; }
     }
 }
