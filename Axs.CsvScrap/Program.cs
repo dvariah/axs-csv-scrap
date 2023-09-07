@@ -1,4 +1,5 @@
 ﻿using Axs.CsvScrap;
+using System.Xml.Schema;
 
 class Program
 {
@@ -81,6 +82,8 @@ class Program
             var payments = reader.ReadPayments(helper.PaymentFilePath);
             var distributions = reader.ReadDistributions(helper.DistributionFilePath);
 
+            Console.WriteLine($"Total lines read:  Sales: {sales.Count} Payments: {payments.Count} Distibution: {distributions.Count}");
+
             foreach (var sale in sales)
             {
                 if (helper.IdArgs.Exists(i => i.Equals(sale.transaction_id)))
@@ -104,6 +107,12 @@ class Program
                     distibutionsResults.Add(distiribution);
                 }
             }
+
+            Console.WriteLine($"Total lines extracted:  Sales: {salesResults.Count} Payments: {paymentsResults.Count} Distibution: {distibutionsResults.Count}");
+
+            Directory.CreateDirectory(Path.GetDirectoryName(helper.ExtractedSalesFilePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(helper.ExtractedPaymentsFilePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(helper.ExtractedDistributionsFilePath));
 
             DeleteFileIfExists(helper.ExtractedSalesFilePath);
             DeleteFileIfExists(helper.ExtractedPaymentsFilePath);
