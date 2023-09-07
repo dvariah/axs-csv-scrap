@@ -6,7 +6,7 @@ namespace Axs.CvsScrap.Tests
     [TestFixture]
     internal class ReaderTests
     {
-        IReader _sut;
+        Reader _sut;
         private const string TESTSTRING = "aaa,bbb,ccc,ddd";
 
         [SetUp]

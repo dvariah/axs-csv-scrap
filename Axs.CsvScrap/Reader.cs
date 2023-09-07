@@ -2,7 +2,7 @@
 
 namespace Axs.CsvScrap
 {
-    public class Reader : IReader
+    public class Reader
     {
         public string Delimiter { get { return ","; } }
 
