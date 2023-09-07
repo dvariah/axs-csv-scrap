@@ -21,9 +21,6 @@
         public string Code { get; set; }
 
         public bool isCallForHelp = false;
-        public bool getUniqueTransactionIds = false;
-        public bool returnAssosiatedOrders = false;
-
         public bool getFileStats = false;
         public bool extractOrderIds = false;
 
@@ -43,16 +40,6 @@
                     {
                         isCallForHelp = true;
                         return;
-                    }
-                    if (arg.Equals("--unique-transactions"))
-                    {
-                        getUniqueTransactionIds = true;
-                        continue;
-                    }
-                    if (arg.Equals("--orders-by-id"))
-                    {
-                        returnAssosiatedOrders = true;
-                        continue;
                     }
                     if (arg.Equals("--extract-order-ids"))
                     {
