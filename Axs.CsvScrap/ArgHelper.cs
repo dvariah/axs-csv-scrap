@@ -1,4 +1,6 @@
-﻿namespace Axs.CsvScrap
+﻿using System.Runtime.InteropServices;
+
+namespace Axs.CsvScrap
 {
     public class ArgHelper
     {
@@ -6,6 +8,7 @@
         public List<string> IdArgs = new List<string>();
 
         public string WorkFolderPath { get; set; }
+        public string ArgumentFullPath { get; set; }
 
         public string SalesFilePath { get; set; }
         public string PaymentFilePath { get; set; }
@@ -51,13 +54,15 @@
                         getFileStats = true;
                         continue;
                     }
+                    Console.WriteLine("Unkown command");
+                    isCallForHelp = true;
+                    return;
                 }
-                if (Path.Exists(arg))
+                if (TryGetFilePath(arg))
                 {
-                    if (!arg.Contains("csv.gz")) { throw new Exception("Not suported file format"); }
-                    WorkFolderPath = Path.GetDirectoryName(arg);
+                    WorkFolderPath = Path.GetDirectoryName(ArgumentFullPath);
 
-                    var n = arg.Split("_");
+                    var n = ArgumentFullPath.Split("_");
 
                     CountryCode = n[n.Length - 3];
                     CityName = n[n.Length - 2];
@@ -69,12 +74,12 @@
 
                     StatsFilePath = SalesFilePath.Replace(".csv.gz", "-stats.csv");
 
-
                     ExtractedSalesFilePath = $"{WorkFolderPath}\\input\\sales\\{CountryCode}\\{CityName}\\axs_sales_{CountryCode}_{CityName}_{Code}-extracted.csv";
-                    ExtractedPaymentsFilePath = $"{WorkFolderPath}\\payment\\{CountryCode}\\{CityName}\\axs_payment_{CountryCode}_{CityName}_{Code}-extracted.csv";
-                    ExtractedDistributionsFilePath = $"{WorkFolderPath}\\payment_distribution\\{CountryCode}\\{CityName}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}-extracted.csv";
+                    ExtractedPaymentsFilePath = $"{WorkFolderPath}\\input\\payment\\{CountryCode}\\{CityName}\\axs_payment_{CountryCode}_{CityName}_{Code}-extracted.csv";
+                    ExtractedDistributionsFilePath = $"{WorkFolderPath}\\input\\payment_distribution\\{CountryCode}\\{CityName}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}-extracted.csv";
 
-                    Console.WriteLine($"SalesFilePath : {SalesFilePath}, PaymentFilePath : {PaymentFilePath}, DistibutionFilePath: {DistributionFilePath}");
+                    Console.WriteLine($"\nSalesFilePath : {SalesFilePath} \nPaymentFilePath : {PaymentFilePath} \nDistibutionFilePath: {DistributionFilePath}");
+                    Console.WriteLine($"\nExtractedSalesFilePath : {ExtractedSalesFilePath}\n ExtractedPaymentsFilePath : {ExtractedPaymentsFilePath}\n ExtractedDistributionsFilePath: {ExtractedDistributionsFilePath}\n");
                     continue;
                 }
                 else
@@ -84,6 +89,53 @@
                     continue;
                 }
             }
+        }
+
+        public bool TryGetFilePath(string path)
+        {
+            var isFilePath = false;
+
+            if (!(char.IsLetter(path[0]) && path[1] == ':'))
+            {
+                if (path.Contains(".."))
+                {
+                    var nodes = path.Split("\\");
+                    var upCounter = 0;
+                    string relativeFilePath = string.Empty;
+                    foreach (var node in nodes)
+                    {
+                        if (node == "..")
+                        {
+                            upCounter++;
+                        }
+                        else
+                        {
+                            relativeFilePath = $"{relativeFilePath}\\{node}";
+                        }
+                    }
+                    var currentFolder = Directory.GetCurrentDirectory();
+                    var currentFolderNodes = currentFolder.Split("\\");
+                    for (var i = 0; i < currentFolderNodes.Length - upCounter; i++)
+                    {
+                        ArgumentFullPath += currentFolderNodes[i] + "\\";
+                    }
+                    ArgumentFullPath = Path.TrimEndingDirectorySeparator(ArgumentFullPath) + relativeFilePath;
+                }
+                else
+                {
+                    ArgumentFullPath = Path.Combine(Directory.GetCurrentDirectory(), path);
+                }
+            }
+            else
+            {
+                ArgumentFullPath = path;
+            }
+
+            if (Path.Exists(ArgumentFullPath)) isFilePath = true;
+
+            if (isFilePath && !path.Contains("csv.gz")) { throw new Exception("Not suported file format"); }
+
+            return isFilePath;
         }
 
         public const string DOC = "Start with desired command followed by full path to csv file enclosed in quotes, follow by fields if needed\n" +
