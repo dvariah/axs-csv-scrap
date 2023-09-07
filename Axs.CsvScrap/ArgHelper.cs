@@ -100,11 +100,11 @@
         }
 
         public const string DOC = "Start with desired command followed by full path to csv file enclosed in quotes, follow by fields if needed\n" +
-                                  "--command \"filePath\" field\n" +
-                                  "--help                -> shows generic help info\n" +
-                                  "--unique-transactions -> returns a collection of unique transaction ids from csv file\n" +
-                                  "  e.g. --unique-tansactions \"C:\\newfolder\\sales.csv\"\n" +
-                                  "--orders-by-id        -> creates a csv file with orders that have specified transaction id/n" +
-                                  "  e.g. --orders-by-id \"C:\\myfolder\\sales.csv\" 1234988374\n";
+                                  "--command \"filePath\" order id\n" +
+                                  "--help              -> shows generic help info\n" +
+                                  "--get-file-stats    -> Reads csv archive and returns csv file with sale statistic per unique order\n" +
+                                  "  e.g. ----extract-order-ids \"C:\\myfolder\\axs_sales_de_smalltown_1223456789.csv.gz\"\n" +
+                                  "--extract-order-ids -> Reads three csv archives (sales, payments, payment distribution) and returns three csv files that contain only data assocciated with specified order id\n" +
+                                  "  e.g. --orders-by-id \"C:\\myfolder\\axs_sales_de_smalltown_1223456789.csv.gz\" 1234988374\n";
     }
 }
