@@ -1,5 +1,4 @@
 ﻿using Axs.CsvScrap;
-using System.Xml.Schema;
 
 class Program
 {
