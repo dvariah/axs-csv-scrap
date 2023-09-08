@@ -167,7 +167,11 @@ namespace Axs.CsvScrap
             int start = 0;
             int end = 0;
 
-            if (s == null || !s.Contains(Delimiter)) { throw new Exception("Not a csv line"); }
+            if (s == null || !s.Contains(Delimiter))
+            {
+                Console.WriteLine("Error: Not a csv line\n Line: {s}");
+                return null;
+            }
 
             if (i == 0)
             {
