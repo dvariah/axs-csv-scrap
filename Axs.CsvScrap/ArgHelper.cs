@@ -61,16 +61,22 @@ namespace Axs.CsvScrap
                 if (TryGetFilePath(arg))
                 {
                     WorkFolderPath = Path.GetDirectoryName(ArgumentFullPath);
-
-                    var n = ArgumentFullPath.Split("_");
+                    var fileName = Path.GetFileName(ArgumentFullPath);
+                    var n = fileName.Split("_");
 
                     CountryCode = n[n.Length - 3];
                     CityName = n[n.Length - 2];
                     Code = n[n.Length - 1].Replace(".csv.gz", string.Empty);
 
-                    SalesFilePath = $"{WorkFolderPath}\\axs_sales_{CountryCode}_{CityName}_{Code}.csv.gz";
-                    PaymentFilePath = $"{WorkFolderPath}\\axs_payment_{CountryCode}_{CityName}_{Code}.csv.gz";
-                    DistributionFilePath = $"{WorkFolderPath}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}.csv.gz";
+                    var firstPart = string.Empty;
+                    for (int i = 0; i < n.Length - 3; i++)
+                    {
+                        firstPart += $"{n[i]}_";
+                    }
+
+                    SalesFilePath = $"{WorkFolderPath}\\{firstPart}{CountryCode}_{CityName}_{Code}.csv.gz";
+                    PaymentFilePath = $"{WorkFolderPath}\\{firstPart}{CountryCode}_{CityName}_{Code}.csv.gz";
+                    DistributionFilePath = $"{WorkFolderPath}\\{firstPart}{CountryCode}_{CityName}_{Code}.csv.gz";
 
                     StatsFilePath = SalesFilePath.Replace(".csv.gz", "-stats.csv");
 
