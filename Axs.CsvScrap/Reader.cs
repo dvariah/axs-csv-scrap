@@ -16,7 +16,7 @@ namespace Axs.CsvScrap
             while (csvLine != null)
             {
                 var field = GetField(csvLine, idx);
-                if (field.Contains(fieldValue)) { result.Add(csvLine); }
+                if (field != null && field.Contains(fieldValue)) { result.Add(csvLine); }
 
                 csvLine = await reader.ReadLineAsync();
             }
@@ -34,7 +34,7 @@ namespace Axs.CsvScrap
             while (csvLine != null)
             {
                 var field = GetField(csvLine, idx);
-                if (!result.Contains(field)) { result.Add(field); }
+                if (field != null && !result.Contains(field)) { result.Add(field); }
                 csvLine = await reader.ReadLineAsync();
             }
 
@@ -57,7 +57,7 @@ namespace Axs.CsvScrap
                 foreach (var kvp in idxValuePair)
                 {
                     var field = GetField(csvLine, kvp.Key);
-                    if (field.Contains(kvp.Value)) { hit = false; break; }
+                    if (field != null && field.Contains(kvp.Value)) { hit = false; break; }
                 }
 
                 if (hit) { result.Add(csvLine); }
@@ -80,7 +80,7 @@ namespace Axs.CsvScrap
             while (csvLine != null)
             {
                 var field = GetField(csvLine, idx);
-                if (!result.Contains(field)) { result.Add(field); }
+                if (field != null && !result.Contains(field)) { result.Add(field); }
                 csvLine = await reader.ReadLineAsync();
             }
 
@@ -103,7 +103,7 @@ namespace Axs.CsvScrap
                 sale.transaction_id = GetField(csvLine, 1);
                 sale.inventory_type = GetField(csvLine, 24);
                 sale.OriginalCsvLine = csvLine;
-                result.Add(sale);
+                if (sale.unique_id != null && sale.transaction_id != null && sale.inventory_type != null) { result.Add(sale); }
                 csvLine = reader.ReadLine();
             }
 
@@ -126,7 +126,7 @@ namespace Axs.CsvScrap
                 payment.transaction_id = GetField(csvLine, 1);
                 payment.payment_id = GetField(csvLine, 7);
                 payment.OriginalCsvLine = csvLine;
-                result.Add(payment);
+                if (payment.unique_id != null && payment.transaction_id != null && payment.payment_id != null) { result.Add(payment); }
                 csvLine = reader.ReadLine();
             }
 
@@ -148,7 +148,7 @@ namespace Axs.CsvScrap
                 distribution.unique_id = GetField(csvLine, 0);
                 distribution.payment_id = GetField(csvLine, 6);
                 distribution.OriginalCsvLine = csvLine;
-                result.Add(distribution);
+                if (distribution.unique_id != null && distribution.payment_id != null) { result.Add(distribution); }
                 csvLine = reader.ReadLine();
             }
 
@@ -169,7 +169,7 @@ namespace Axs.CsvScrap
 
             if (s == null || !s.Contains(Delimiter))
             {
-                Console.WriteLine("Error: Not a csv line\n Line: {s}");
+                Console.WriteLine($"Error: Not a csv line\n Line: {s}");
                 return null;
             }
 
