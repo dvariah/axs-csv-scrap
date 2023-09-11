@@ -18,6 +18,8 @@ class Program
 
         if (helper.getFileStats)
         {
+            ConsoleTracer.TraceMethodEntry("Start getting file stats.");
+
             var results = new List<SaleStats>();
             var sales = reader.ReadSales(helper.SalesFilePath);
             var payments = reader.ReadPayments(helper.PaymentFilePath);
@@ -65,9 +67,13 @@ class Program
                 var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
                 writer.WriteLine(resultString);
             }
+
+            Console.WriteLine($"Stats file path: {helper.StatsFilePath}");
         }
         if (helper.extractOrderIds)
         {
+            ConsoleTracer.TraceMethodEntry("Start extracting orders by ids.");
+
             if (helper.IdArgs.Count == 0)
             {
                 throw new Exception("No transaction id argument provided");

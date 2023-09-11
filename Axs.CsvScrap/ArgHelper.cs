@@ -27,6 +27,8 @@ namespace Axs.CsvScrap
         public bool getFileStats = false;
         public bool extractOrderIds = false;
 
+        public static bool IsTraceEntryMode = false;
+
         public void Parse(string[] Args)
         {
             if (Args.Length <= 0)
@@ -52,6 +54,11 @@ namespace Axs.CsvScrap
                     if (arg.Equals("--get-file-stats"))
                     {
                         getFileStats = true;
+                        continue;
+                    }
+                    if (arg.Equals("--trace-method"))
+                    {
+                        IsTraceEntryMode = true;
                         continue;
                     }
                     Console.WriteLine("Unkown command");
