@@ -56,17 +56,7 @@ class Program
                 result.num_of_paymentdistributions += distributions.Where(d => d.payment_id.Equals(payment.payment_id)).Count();
             }
 
-            DeleteFileIfExists(helper.StatsFilePath);
-            using var writer = File.CreateText(helper.StatsFilePath);
-
-            var header = "order_id, num_of_ticket_sales, num_of_fee_sales, num_of_merch_sales, num_of_payments, num_of_paymentdistributions";
-            writer.WriteLine(header);
-
-            foreach (var result in results)
-            {
-                var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
-                writer.WriteLine(resultString);
-            }
+            ResultFileWriter.WriteStatsFile(helper.StatsFilePath, results);
 
             Console.WriteLine($"Stats file path: {helper.StatsFilePath}");
         }
