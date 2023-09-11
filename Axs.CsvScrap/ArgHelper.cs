@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Axs.CsvScrap
+﻿namespace Axs.CsvScrap
 {
     public class ArgHelper
     {
