@@ -109,9 +109,9 @@
 
                     StatsFilePath = SalesFilePath.Replace(".csv.gz", "-stats.csv");
 
-                    ExtractedSalesFilePath = $"{WorkFolderPath}\\input\\sales\\{CountryCode}\\{CityName}\\axs_sales_{CountryCode}_{CityName}_{Code}-extracted.csv";
-                    ExtractedPaymentsFilePath = $"{WorkFolderPath}\\input\\payment\\{CountryCode}\\{CityName}\\axs_payment_{CountryCode}_{CityName}_{Code}-extracted.csv";
-                    ExtractedDistributionsFilePath = $"{WorkFolderPath}\\input\\payment_distribution\\{CountryCode}\\{CityName}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}-extracted.csv";
+                    ExtractedSalesFilePath = $"{WorkFolderPath}\\input\\sales\\{CountryCode}\\{CityName}\\axs_sales_{CountryCode}_{CityName}_{Code}.csv";
+                    ExtractedPaymentsFilePath = $"{WorkFolderPath}\\input\\payment\\{CountryCode}\\{CityName}\\axs_payment_{CountryCode}_{CityName}_{Code}.csv";
+                    ExtractedDistributionsFilePath = $"{WorkFolderPath}\\input\\payment_distribution\\{CountryCode}\\{CityName}\\axs_payment_distribution_{CountryCode}_{CityName}_{Code}.csv";
 
                     Console.WriteLine($"\nSalesFilePath : {SalesFilePath} \nPaymentFilePath : {PaymentFilePath} \nDistibutionFilePath: {DistributionFilePath}");
                     Console.WriteLine($"\nExtractedSalesFilePath : {ExtractedSalesFilePath}\n ExtractedPaymentsFilePath : {ExtractedPaymentsFilePath}\n ExtractedDistributionsFilePath: {ExtractedDistributionsFilePath}\n");
