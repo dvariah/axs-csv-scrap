@@ -89,6 +89,8 @@ namespace Axs.CsvScrap
 
         public List<Sale> ReadSales(string filePath)
         {
+            ConsoleTracer.TraceMethodEntry($"Enter ReadSales method. FilePath {filePath}");
+
             var result = new List<Sale>();
             using var fileStream = File.OpenRead(filePath);
             using var gzStream = new GZipStream(fileStream, CompressionMode.Decompress);
@@ -107,11 +109,14 @@ namespace Axs.CsvScrap
                 csvLine = reader.ReadLine();
             }
 
+            ConsoleTracer.TraceMethodEntry($"Exit ReadSales method.");
             return result;
         }
 
         public List<Payment> ReadPayments(string filePath)
         {
+            ConsoleTracer.TraceMethodEntry($"Enter ReadPayments method. FilePath {filePath}");
+
             var result = new List<Payment>();
             using var fileStream = File.OpenRead(filePath);
             using var gzStream = new GZipStream(fileStream, CompressionMode.Decompress);
@@ -130,11 +135,14 @@ namespace Axs.CsvScrap
                 csvLine = reader.ReadLine();
             }
 
+            ConsoleTracer.TraceMethodEntry($"Exit ReadPayments method.");
             return result;
         }
 
         public List<Distribution> ReadDistributions(string filePath)
         {
+            ConsoleTracer.TraceMethodEntry($"Enter ReadDistributions method. FilePath {filePath}");
+
             var result = new List<Distribution>();
             using var fileStream = File.OpenRead(filePath);
             using var gzStream = new GZipStream(fileStream, CompressionMode.Decompress);
@@ -152,6 +160,7 @@ namespace Axs.CsvScrap
                 csvLine = reader.ReadLine();
             }
 
+            ConsoleTracer.TraceMethodEntry($"Exit ReadPayments method.");
             return result;
         }
 
