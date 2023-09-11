@@ -105,31 +105,9 @@ class Program
 
             Console.WriteLine($"Total lines extracted:  Sales: {salesResults.Count} Payments: {paymentsResults.Count} Distibution: {distibutionsResults.Count}");
 
-            Directory.CreateDirectory(Path.GetDirectoryName(helper.ExtractedSalesFilePath));
-            Directory.CreateDirectory(Path.GetDirectoryName(helper.ExtractedPaymentsFilePath));
-            Directory.CreateDirectory(Path.GetDirectoryName(helper.ExtractedDistributionsFilePath));
-
-            DeleteFileIfExists(helper.ExtractedSalesFilePath);
-            DeleteFileIfExists(helper.ExtractedPaymentsFilePath);
-            DeleteFileIfExists(helper.ExtractedDistributionsFilePath);
-
-            using var writerS = File.CreateText(helper.ExtractedSalesFilePath);
-            foreach (var sale in salesResults)
-            {
-                writerS.WriteLine(sale.OriginalCsvLine);
-            }
-
-            using var writerP = File.CreateText(helper.ExtractedPaymentsFilePath);
-            foreach (var payment in paymentsResults)
-            {
-                writerP.WriteLine(payment.OriginalCsvLine);
-            }
-
-            using var writerD = File.CreateText(helper.ExtractedDistributionsFilePath);
-            foreach (var distribution in distibutionsResults)
-            {
-                writerP.WriteLine(distribution.OriginalCsvLine);
-            }
+            ResultFileWriter.WriteExtractedSalesFile(helper.ExtractedSalesFilePath, salesResults);
+            ResultFileWriter.WriteExtractedPamentsFile(helper.ExtractedPaymentsFilePath, paymentsResults);
+            ResultFileWriter.WriteExtractedDistributionFile(helper.ExtractedDistributionsFilePath, distibutionsResults);
         }
 
         Console.WriteLine($"Succesfuly executed. {watch.ElapsedMilliseconds} ms\n Press enter to exit ...");
