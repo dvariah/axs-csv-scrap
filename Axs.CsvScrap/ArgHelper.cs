@@ -16,6 +16,9 @@
         public string ExtractedSalesFilePath { get; set; }
         public string ExtractedPaymentsFilePath { get; set; }
         public string ExtractedDistributionsFilePath { get; set; }
+        public string ControlCardSalesFilePath { get; set; }
+        public string ControlCardPaymentsFilePath { get; set; }
+        public string ControlCardDistributionsFilePath { get; set; }
 
         public string CountryCode { get; set; }
         public string CityName { get; set; }
@@ -112,6 +115,10 @@
                     ExtractedSalesFilePath = PathHelper.CreateExtractedSalesFilePath(WorkFolderPath, CountryCode, CityName, Code);
                     ExtractedPaymentsFilePath = PathHelper.CreateExtractedPaymentsFilePath(WorkFolderPath, CountryCode, CityName, Code);
                     ExtractedDistributionsFilePath = PathHelper.CreateExtractedDistributionsFilePath(WorkFolderPath, CountryCode, CityName, Code);
+
+                    ControlCardSalesFilePath = PathHelper.CreateControlCardSalesFilePath(WorkFolderPath, CountryCode, CityName, Code);
+                    ControlCardPaymentsFilePath = PathHelper.CreateControlCardPaymentsFilePath(WorkFolderPath, CountryCode, CityName, Code);
+                    ControlCardDistributionsFilePath = PathHelper.CreateControlCardDistributionsFilePath(WorkFolderPath, CountryCode, CityName, Code);
 
                     Console.WriteLine($"\nSalesFilePath : {SalesFilePath} \nPaymentFilePath : {PaymentFilePath} \nDistibutionFilePath: {DistributionFilePath}");
                     Console.WriteLine($"\nExtractedSalesFilePath : {ExtractedSalesFilePath}\n ExtractedPaymentsFilePath : {ExtractedPaymentsFilePath}\n ExtractedDistributionsFilePath: {ExtractedDistributionsFilePath}\n");
