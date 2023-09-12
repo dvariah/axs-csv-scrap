@@ -39,21 +39,21 @@ namespace Axs.CvsScrap.Tests
         public void CreateControlCardSalesFilePath_ReturnsCorrectPath()
         {
             var result = PathHelper.CreateControlCardSalesFilePath("C:\\testFolder", "de", "pines", "42");
-            Assert.AreEqual($"C:\\testFolder\\input\\sales\\de\\pines\\axs_sales_de_pines_42_control_card.csv.gz", result);
+            Assert.AreEqual($"C:\\testFolder\\input\\sales\\de\\pines\\axs_sales_de_pines_42_control_card.txt", result);
         }
 
         [Test]
         public void CreateControlCaardPaymentsFilePath_ReturnsCorrectPath()
         {
             var result = PathHelper.CreateControlCardPaymentsFilePath("C:\\testFolder", "de", "pines", "42");
-            Assert.AreEqual($"C:\\testFolder\\input\\payment\\de\\pines\\axs_payment_de_pines_42_control_card.csv.gz", result);
+            Assert.AreEqual($"C:\\testFolder\\input\\payment\\de\\pines\\axs_payment_de_pines_42_control_card.txt", result);
         }
 
         [Test]
         public void CreateControlCardDistributionsFilePath_ReturnsCorrectPath()
         {
             var result = PathHelper.CreateControlCardDistributionsFilePath("C:\\testFolder", "de", "pines", "42");
-            Assert.AreEqual($"C:\\testFolder\\input\\payment_distribution\\de\\pines\\axs_payment_distribution_de_pines_42_control_card.csv.gz", result);
+            Assert.AreEqual($"C:\\testFolder\\input\\payment_distribution\\de\\pines\\axs_payment_distribution_de_pines_42_control_card.txt", result);
         }
     }
 }
