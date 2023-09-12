@@ -9,5 +9,13 @@
                 Console.WriteLine(message);
             }
         }
+
+        public static void PrintError(string message)
+        {
+            if (ArgHelper.IsDisplayErrorsMode)
+            {
+                Console.WriteLine(message);
+            }
+        }
     }
 }

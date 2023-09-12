@@ -29,6 +29,7 @@
         public bool extractOrderIds = false;
 
         public static bool IsTraceEntryMode = false;
+        public static bool IsDisplayErrorsMode = false;
 
         public void Parse(string[] Args)
         {
@@ -62,6 +63,12 @@
                         IsTraceEntryMode = true;
                         continue;
                     }
+                    if (arg.Equals("--display-errors"))
+                    {
+                        IsDisplayErrorsMode = true;
+                        continue;
+                    }
+
                     Console.WriteLine("Unkown command");
                     isCallForHelp = true;
                     return;

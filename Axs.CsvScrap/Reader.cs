@@ -181,7 +181,7 @@ namespace Axs.CsvScrap
 
             if (s == null || !s.Contains(Delimiter))
             {
-                Console.WriteLine($"Error: Not a csv line\n Line: {s}");
+                ConsoleTracer.PrintError($"Error: Not a csv line\n Line: {s}");
                 return null;
             }
 
@@ -216,7 +216,7 @@ namespace Axs.CsvScrap
             var field = GetField(s, i);
             decimal dec = 0;
             var success = decimal.TryParse(field, out dec);
-            if (!success) Console.WriteLine($"Not a number: {field}");
+            if (!success) ConsoleTracer.PrintError($"Not a number: {field}");
             return dec;
         }
     }
