@@ -75,6 +75,13 @@ namespace Axs.CsvScrap
             ConsoleTracer.TraceMethodEntry($"Exit WriteExtractedDistributionFile method.");
         }
 
+        public static void WriteControlCard(string filePath, string message)
+        {
+            DeleteFileIfExists(filePath);
+            using var writer = File.CreateText(filePath);
+            writer.WriteLine(message);
+        }
+
         private static void DeleteFileIfExists(string filePath)
         {
             if (File.Exists(filePath))
