@@ -104,6 +104,7 @@ namespace Axs.CsvScrap
                 sale.unique_id = GetField(csvLine, 0);
                 sale.transaction_id = GetField(csvLine, 1);
                 sale.inventory_type = GetField(csvLine, 24);
+                sale.total_sales_gross_amount = Decimal.Parse(GetField(csvLine, 105));
                 sale.OriginalCsvLine = csvLine;
                 if (sale.unique_id != null && sale.transaction_id != null && sale.inventory_type != null) { result.Add(sale); }
                 csvLine = reader.ReadLine();
@@ -130,6 +131,7 @@ namespace Axs.CsvScrap
                 payment.unique_id = GetField(csvLine, 0);
                 payment.transaction_id = GetField(csvLine, 1);
                 payment.payment_id = GetField(csvLine, 7);
+                payment.payment_amount = Decimal.Parse(GetField(csvLine, 18));
                 payment.OriginalCsvLine = csvLine;
                 if (payment.unique_id != null && payment.transaction_id != null && payment.payment_id != null) { result.Add(payment); }
                 csvLine = reader.ReadLine();
@@ -155,6 +157,7 @@ namespace Axs.CsvScrap
                 var distribution = new Distribution();
                 distribution.unique_id = GetField(csvLine, 0);
                 distribution.payment_id = GetField(csvLine, 6);
+                distribution.distribution_amount = Decimal.Parse(GetField(csvLine, 33));
                 distribution.OriginalCsvLine = csvLine;
                 if (distribution.unique_id != null && distribution.payment_id != null) { result.Add(distribution); }
                 csvLine = reader.ReadLine();
