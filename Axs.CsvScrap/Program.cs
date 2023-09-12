@@ -93,6 +93,10 @@ class Program
         var payments = reader.ReadPayments(helper.PaymentFilePath);
         var distributions = reader.ReadDistributions(helper.DistributionFilePath);
 
+        decimal salesAmount = 0;
+        decimal paymentsAmount = 0;
+        decimal distirbutionsAmount = 0;
+
         Console.WriteLine($"Total lines read:  Sales: {sales.Count} Payments: {payments.Count} Distibution: {distributions.Count}");
 
         foreach (var sale in sales)
@@ -100,6 +104,7 @@ class Program
             if (helper.IdArgs.Exists(i => i.Equals(sale.transaction_id)))
             {
                 salesResults.Add(sale);
+                salesAmount += sale.total_sales_gross_amount;
             }
         }
 
@@ -108,6 +113,7 @@ class Program
             if (helper.IdArgs.Contains(payment.transaction_id))
             {
                 paymentsResults.Add(payment);
+                paymentsAmount += payment.payment_amount;
             }
         }
 
@@ -116,6 +122,7 @@ class Program
             if (paymentsResults.Exists(p => p.payment_id.Equals(distiribution.payment_id)))
             {
                 distibutionsResults.Add(distiribution);
+                distirbutionsAmount += distiribution.distribution_amount;
             }
         }
 
@@ -124,6 +131,10 @@ class Program
         ResultFileWriter.WriteExtractedSalesFile(helper.ExtractedSalesFilePath, salesResults);
         ResultFileWriter.WriteExtractedPamentsFile(helper.ExtractedPaymentsFilePath, paymentsResults);
         ResultFileWriter.WriteExtractedDistributionFile(helper.ExtractedDistributionsFilePath, distibutionsResults);
+
+        ResultFileWriter.WriteControlCard(helper.ControlCardSalesFilePath, $"{salesResults.Count}, {salesAmount.ToString()}");
+        ResultFileWriter.WriteControlCard(helper.ControlCardPaymentsFilePath, $"{paymentsResults.Count}, {paymentsAmount.ToString()}");
+        ResultFileWriter.WriteControlCard(helper.ControlCardDistributionsFilePath, $"{distibutionsResults.Count}, {distirbutionsAmount.ToString()}");
 
         ConsoleTracer.TraceMethodEntry($"Exit ExtractOrderIds method.");
     }
