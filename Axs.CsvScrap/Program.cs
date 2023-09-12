@@ -127,6 +127,7 @@ class Program
         }
 
         Console.WriteLine($"Total lines extracted:  Sales: {salesResults.Count} Payments: {paymentsResults.Count} Distibution: {distibutionsResults.Count}");
+        Console.WriteLine($"Failed to parse {reader.IncorrectCvsLineErrorCounter} lines (incorrect csv line). Failed to parse {reader.NotANumberErrorCounter} number. (not a number).");
 
         ResultFileWriter.WriteExtractedSalesFile(helper.ExtractedSalesFilePath, salesResults);
         ResultFileWriter.WriteExtractedPamentsFile(helper.ExtractedPaymentsFilePath, paymentsResults);

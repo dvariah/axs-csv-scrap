@@ -6,6 +6,9 @@ namespace Axs.CsvScrap
     {
         public string Delimiter { get { return ","; } }
 
+        public int IncorrectCvsLineErrorCounter { get; set; }
+        public int NotANumberErrorCounter { get; set; }
+
         public async Task<List<string>> ReadWhereFieldEquals(string filePath, int idx, string fieldValue)
         {
             var result = new List<string>();
@@ -182,6 +185,7 @@ namespace Axs.CsvScrap
             if (s == null || !s.Contains(Delimiter))
             {
                 ConsoleTracer.PrintError($"Error: Not a csv line\n Line: {s}");
+                IncorrectCvsLineErrorCounter++;
                 return null;
             }
 
@@ -216,7 +220,11 @@ namespace Axs.CsvScrap
             var field = GetField(s, i);
             decimal dec = 0;
             var success = decimal.TryParse(field, out dec);
-            if (!success) ConsoleTracer.PrintError($"Not a number: {field}");
+            if (!success)
+            {
+                ConsoleTracer.PrintError($"Not a number: {field}");
+                NotANumberErrorCounter++;
+            }
             return dec;
         }
     }
