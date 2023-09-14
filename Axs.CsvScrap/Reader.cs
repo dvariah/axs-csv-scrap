@@ -212,12 +212,25 @@ namespace Axs.CsvScrap
 
             if (end == -1) { end = s.Length; }
 
-            return s[start..end];
+            var field = s[start..end];
+
+            if (s[start] != '\"')
+            {
+                field = $"\"{field}\"";
+            }
+
+            return field;
         }
 
         public decimal GetDecField(string s, int i)
         {
             var field = GetField(s, i);
+
+            if (field.StartsWith("\""))
+            {
+                field = field.Replace("\"", string.Empty);
+            }
+
             decimal dec = 0;
             var success = decimal.TryParse(field, out dec);
             if (!success)
