@@ -49,13 +49,13 @@ class Program
 
             switch (sale.inventory_type)
             {
-                case "0":
+                case "\"0\"":
                     stats.num_of_fee_sales++;
                     break;
-                case "1":
+                case "\"1\"":
                     stats.num_of_merch_sales++;
                     break;
-                case "2":
+                case "\"2\"":
                     stats.num_of_ticket_sales++;
                     break;
             }
