@@ -43,7 +43,15 @@ class Program
             var stats = results.FirstOrDefault(r => r.order_id.Equals(sale.transaction_id));
             if (stats == null)
             {
-                stats = new SaleStats { order_id = sale.transaction_id };
+                stats = new SaleStats
+                {
+                    order_id = sale.transaction_id,
+                    venue = sale.venue,
+                    client = sale.client,
+                    event_name = sale.event_name,
+                    zone_type = sale.zone_type,
+                    price_code_type = sale.price_code_type,
+                };
                 results.Add(stats);
             }
 

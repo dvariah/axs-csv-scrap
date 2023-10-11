@@ -10,12 +10,13 @@ namespace Axs.CsvScrap
             DeleteFileIfExists(filePath);
             using var writer = File.CreateText(filePath);
 
-            var header = "order_id, num_of_ticket_sales, num_of_fee_sales, num_of_merch_sales, num_of_payments, num_of_paymentdistributions";
+            var header = "order_id, num_of_ticket_sales, num_of_fee_sales, num_of_merch_sales, num_of_payments, num_of_paymentdistributions, venue, client, event_name, zone_type, price_code_type";
             writer.WriteLine(header);
 
             foreach (var result in saleStats)
             {
-                var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}";
+                var resultString = $"{result.order_id}, {result.num_of_ticket_sales}, {result.num_of_fee_sales}, {result.num_of_merch_sales}, {result.num_of_payments}, {result.num_of_paymentdistributions}, " +
+                    $"{result.venue}, {result.client}, {result.event_name}, {result.zone_type}, {result.price_code_type}";
                 writer.WriteLine(resultString);
             }
             ConsoleTracer.TraceMethodEntry($"Exit WriteStatsFile method.");

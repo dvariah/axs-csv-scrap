@@ -41,19 +41,19 @@
 
             foreach (var arg in Args)
             {
-                if (arg.StartsWith("--"))
+                if (arg.StartsWith("-"))
                 {
                     if (arg.Equals("--help"))
                     {
                         isCallForHelp = true;
                         return;
                     }
-                    if (arg.Equals("--extract-order-ids"))
+                    if (arg.Equals("--extract-order-ids") || arg.Equals("-e"))
                     {
                         extractOrderIds = true;
                         continue;
                     }
-                    if (arg.Equals("--get-file-stats"))
+                    if (arg.Equals("--get-file-stats") || arg.Equals("-s"))
                     {
                         getFileStats = true;
                         continue;

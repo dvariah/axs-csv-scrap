@@ -108,6 +108,13 @@ namespace Axs.CsvScrap
                 sale.transaction_id = GetField(csvLine, 1);
                 sale.inventory_type = GetField(csvLine, 24);
                 sale.total_sales_gross_amount = GetDecField(csvLine, 105 - 1);
+
+                sale.venue = GetField(csvLine, 15-1);
+                sale.client = GetField(csvLine, 29-1);
+                sale.event_name = GetField(csvLine, 32-1);
+                sale.zone_type = GetField(csvLine, 36-1);
+                sale.price_code_type = GetField(csvLine, 51-1);
+
                 sale.OriginalCsvLine = csvLine;
                 if (sale.unique_id != null && sale.transaction_id != null && sale.inventory_type != null) { result.Add(sale); }
                 csvLine = reader.ReadLine();
