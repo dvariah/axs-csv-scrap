@@ -73,6 +73,11 @@ class Program
         {
             var result = results.FirstOrDefault(r => r.order_id.Equals(payment.transaction_id));
             if (result == null) continue;
+
+            result.merch_id = payment.merch_id;
+            result.outlet = payment.outlet;
+            result.payment_type = payment.payment_type;
+
             result.num_of_payments++;
             result.num_of_paymentdistributions += distributions.Where(d => d.payment_id.Equals(payment.payment_id)).Count();
         }

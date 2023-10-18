@@ -109,11 +109,11 @@ namespace Axs.CsvScrap
                 sale.inventory_type = GetField(csvLine, 24);
                 sale.total_sales_gross_amount = GetDecField(csvLine, 105 - 1);
 
-                sale.venue = GetField(csvLine, 15-1);
-                sale.client = GetField(csvLine, 29-1);
-                sale.event_name = GetField(csvLine, 32-1);
-                sale.zone_type = GetField(csvLine, 36-1);
-                sale.price_code_type = GetField(csvLine, 51-1);
+                sale.venue = GetField(csvLine, 15 - 1);
+                sale.client = GetField(csvLine, 29 - 1);
+                sale.event_name = GetField(csvLine, 32 - 1);
+                sale.zone_type = GetField(csvLine, 36 - 1);
+                sale.price_code_type = GetField(csvLine, 51 - 1);
 
                 sale.OriginalCsvLine = csvLine;
                 if (sale.unique_id != null && sale.transaction_id != null && sale.inventory_type != null) { result.Add(sale); }
@@ -142,6 +142,10 @@ namespace Axs.CsvScrap
                 payment.transaction_id = GetField(csvLine, 1);
                 payment.payment_id = GetField(csvLine, 7);
                 payment.payment_amount = GetDecField(csvLine, 18 - 1);
+                payment.merch_id = GetField(csvLine, 7 - 1);
+                payment.outlet = GetField(csvLine, 15 - 1);
+                payment.payment_type = GetField(csvLine, 17 - 1);
+
                 payment.OriginalCsvLine = csvLine;
                 if (payment.unique_id != null && payment.transaction_id != null && payment.payment_id != null) { result.Add(payment); }
                 csvLine = reader.ReadLine();

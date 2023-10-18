@@ -7,6 +7,10 @@
         public string payment_id { get; set; }
         public decimal payment_amount { get; set; }
 
+        public string merch_id { get; set; }
+        public string outlet { get; set; }
+        public string payment_type { get; set; }
+
         public string OriginalCsvLine { get; set; }
     }
 }

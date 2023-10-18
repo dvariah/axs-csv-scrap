@@ -13,5 +13,8 @@
         public string event_name { get; set; }
         public string zone_type { get; set; }
         public string price_code_type { get; set; }
+        public string merch_id { get; set; }
+        public string outlet { get; set; }
+        public string payment_type { get; set; }
     }
 }
